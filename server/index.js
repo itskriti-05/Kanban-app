@@ -12,6 +12,9 @@ app.use(express.json())
 const authRoutes = require('./routes/auth')
 app.use('/api/auth', authRoutes)
 
+const boardRoutes = require('./routes/board')
+app.use('/api/boards' , boardRoutes)
+
 const dns = require("dns");
 dns.setServers(["1.1.1.1", "8.8.8.8"]);
 
