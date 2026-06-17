@@ -1,13 +1,12 @@
-import React from 'react'
-
 const PRIORITY_STYLES = {
-  High: 'bg-red-100 text-red-500',
-  Medium: 'bg-amber-100 text-amber-600',
-  Low: 'bg-green-100 text-green-600',
+  High: 'bg-red-100 text-red-700',
+  Medium: 'bg-amber-100 text-amber-700',
+  Low: 'bg-green-100 text-green-700',
 }
 
-const CardItem = ({ card, borderColor, onClick, onDelete }) => {
+export default function CardItem({ card, borderColor, onClick, onDelete }) {
   const isOverdue = card.dueDate && new Date(card.dueDate) < new Date()
+  const progress = Number(card.progress) || 0
 
   return (
     <div
@@ -29,16 +28,22 @@ const CardItem = ({ card, borderColor, onClick, onDelete }) => {
         <p className="text-xs text-gray-400 mb-3 line-clamp-2 leading-relaxed">{card.description}</p>
       )}
 
-      {/* Progress bar */}
-      <div className="w-full h-1.5 bg-gray-100 rounded-full mb-3">
-        <div
-          className="h-full bg-purple-500 rounded-full transition-all"
-          style={{ width: `${card.progress || 0}%` }}
-        />
+      {/* Progress */}
+      <div className="mb-2">
+        <div className="flex justify-between items-center mb-1">
+          <span className="text-[10px] text-gray-400">Progress</span>
+          <span className="text-[10px] text-purple-600 font-medium">{progress}%</span>
+        </div>
+        <div className="w-full h-1.5 bg-gray-100 rounded-full">
+          <div
+            className="h-full bg-purple-600 rounded-full transition-all"
+            style={{ width: `${progress}%` }}
+          />
+        </div>
       </div>
 
       {/* Footer */}
-      <div className="flex justify-between items-center">
+      <div className="flex justify-between items-center mt-2">
         {card.dueDate ? (
           <span className={`text-xs ${isOverdue ? 'text-red-500 font-medium' : 'text-gray-400'}`}>
             {isOverdue ? '⚠ ' : ''}Due: {new Date(card.dueDate).toLocaleDateString('en-US', { month: 'short', day: 'numeric' })}
@@ -60,5 +65,3 @@ const CardItem = ({ card, borderColor, onClick, onDelete }) => {
     </div>
   )
 }
-
-export default CardItem

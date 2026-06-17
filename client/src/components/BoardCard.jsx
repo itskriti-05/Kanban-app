@@ -21,7 +21,7 @@ export default function BoardCard({ board, onClick, onDelete }) {
   return (
     <div
       onClick={onClick}
-      className="bg-white rounded-2xl border border-gray-100 p-5 cursor-pointer hover:shadow-md transition"
+      className="bg-white rounded-3xl border border-gray-100 p-5 cursor-pointer hover:shadow-md transition"
     >
       {/* Header */}
       <div className="flex justify-between items-start mb-3">

@@ -129,7 +129,7 @@ export default function Dashboard() {
             {/* Create new board card */}
             <div
               onClick={() => setShowModal(true)}
-              className="bg-white rounded-2xl border-2 border-dashed border-gray-200 flex flex-col items-center justify-center gap-2 min-h-[180px] cursor-pointer hover:border-purple-300 transition"
+              className="bg-white rounded-3xl border-2 border-dashed border-gray-200 flex flex-col items-center justify-center gap-2 min-h-[180px] cursor-pointer hover:border-purple-300 transition"
             >
               <div className="w-9 h-9 bg-gray-50 rounded-lg flex items-center justify-center">
                 <span className="text-gray-400 text-xl">+</span>

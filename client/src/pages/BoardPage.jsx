@@ -61,7 +61,7 @@ export default function BoardPage() {
     const updated = {
       ...board,
       columns: board.columns.map((col, i) =>
-        i === colIndex ? { ...col, cards: [...col.cards, cardData] } : col,
+        i === colIndex ? { ...col, cards: [...col.cards, cardData] } : col
       ),
     };
     await saveBoard(updated);
@@ -73,11 +73,8 @@ export default function BoardPage() {
       ...board,
       columns: board.columns.map((col, i) =>
         i === colIndex
-          ? {
-              ...col,
-              cards: col.cards.map((c, j) => (j === cardIndex ? cardData : c)),
-            }
-          : col,
+          ? { ...col, cards: col.cards.map((c, j) => (j === cardIndex ? cardData : c)) }
+          : col
       ),
     };
     await saveBoard(updated);
@@ -90,7 +87,7 @@ export default function BoardPage() {
       columns: board.columns.map((col, i) =>
         i === colIndex
           ? { ...col, cards: col.cards.filter((_, j) => j !== cardIndex) }
-          : col,
+          : col
       ),
     };
     await saveBoard(updated);
@@ -99,7 +96,7 @@ export default function BoardPage() {
 
   if (loading)
     return (
-      <div className="flex min-h-screen bg-[#f5f4ff]">
+      <div className="flex min-h-screen bg-[#f8f7ff]">
         <Sidebar />
         <div className="ml-[60px] flex-1 flex items-center justify-center">
           <p className="text-gray-400 text-sm">Loading board...</p>
@@ -108,56 +105,60 @@ export default function BoardPage() {
     );
 
   return (
-    <div className="flex min-h-screen bg-[#f5f4ff]">
+    <div className="flex h-screen bg-[#f8f7ff] overflow-hidden">
       <Toaster />
       <Sidebar />
 
-      <div className="ml-[60px] flex-1 flex flex-col">
+      <div className="ml-[60px] flex-1 flex flex-col min-w-0">
+
         {/* Top bar */}
-        <div className="bg-white border-b border-gray-100 px-6 py-4 flex justify-between items-center">
+        <div className="bg-white border-b border-gray-100 px-6 py-3 flex justify-between items-center shrink-0">
           <div className="flex items-center gap-2">
             <span
               onClick={() => navigate("/dashboard")}
-              className="text-sm text-gray-400 cursor-pointer hover:text-purple-700 transition"
+              className="text-xs text-gray-400 cursor-pointer hover:text-purple-700 transition"
             >
               My Boards
             </span>
-            <span className="text-gray-300">/</span>
-            <span className="text-sm font-bold text-[#1a1a2e]">
+            <span className="text-gray-300 text-xs">/</span>
+            <span className="text-sm font-semibold text-[#1a1a2e]">
               {board?.title}
             </span>
           </div>
           <button
             onClick={addColumn}
-            className="flex items-center gap-2 bg-purple-700 hover:bg-purple-800 text-white text-sm font-semibold px-5 py-2.5 rounded-xl transition shadow-sm"
+            className="flex items-center gap-2 bg-purple-700 hover:bg-purple-800 text-white text-sm font-medium px-4 py-2 rounded-lg transition"
           >
-            + Add Task
+            + Add Column
           </button>
         </div>
 
         {/* Columns area */}
-        <div className="flex-1 flex gap-5 p-6 overflow-x-auto">
-          {board?.columns.map((col, colIndex) => (
-            <Column
-              key={colIndex}
-              column={col}
-              colIndex={colIndex}
-              onAddCard={(cardData) => addCard(colIndex, cardData)}
-              onUpdateCard={(cardIndex, cardData) =>
-                updateCard(colIndex, cardIndex, cardData)
-              }
-              onDeleteCard={(cardIndex) => deleteCard(colIndex, cardIndex)}
-              onDeleteColumn={() => deleteColumn(colIndex)}
-            />
-          ))}
+        <div className="flex-1 overflow-x-auto overflow-y-auto">
+          <div className="flex gap-4 p-6 h-full items-start">
+            {board?.columns.map((col, colIndex) => (
+              <Column
+                key={colIndex}
+                column={col}
+                colIndex={colIndex}
+                onAddCard={(cardData) => addCard(colIndex, cardData)}
+                onUpdateCard={(cardIndex, cardData) =>
+                  updateCard(colIndex, cardIndex, cardData)
+                }
+                onDeleteCard={(cardIndex) => deleteCard(colIndex, cardIndex)}
+                onDeleteColumn={() => deleteColumn(colIndex)}
+              />
+            ))}
 
-          {/* Add column placeholder */}
-          <div
-            onClick={addColumn}
-            className="min-w-[280px] h-fit bg-white/50 border-2 border-dashed border-gray-200 rounded-3xl p-6 flex flex-col items-center justify-center gap-2 cursor-pointer hover:border-purple-300 hover:bg-white/70 transition"
-          >
-            <span className="text-3xl text-gray-300">+</span>
-            <span className="text-xs text-gray-400">Add column</span>
+            {/* Add column placeholder */}
+            <div
+              onClick={addColumn}
+              className="shrink-0 w-[200px] bg-white/60 border-2 border-dashed border-gray-200 rounded-2xl p-4 flex flex-col items-center justify-center gap-2 cursor-pointer hover:border-purple-300 transition"
+              style={{ minHeight: '80px' }}
+            >
+              <span className="text-2xl text-gray-300">+</span>
+              <span className="text-xs text-gray-400">Add column</span>
+            </div>
           </div>
         </div>
       </div>
