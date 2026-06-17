@@ -5,6 +5,7 @@ import Landing from './pages/Landing'
 import Login from './pages/Login'
 import Register from './pages/Register'
 import Dashboard from './pages/Dashboard'
+import BoardCard from './components/BoardCard'
 
 
 const App = () => {
@@ -15,6 +16,7 @@ const App = () => {
     <Route path='/login' element ={!user ? <Login /> : <Navigate to="/dashboard"/>} />
     <Route path='/register' element ={!user ? <Register /> : <Navigate to="/dashboard"/>} />
      <Route path="/dashboard" element={user ? <Dashboard /> : <Navigate to="/login" />} />
+     <Route path='/board/:id' element={user ? <BoardCard/>  : <Navigate to="/login" />}/>
 
    
    </Routes>

@@ -3,12 +3,12 @@ import CardItem from './CardItem'
 import CardModal from './CardModal'
 
 const COLUMN_COLORS = {
-  'To Do': { bg: 'bg-pink-100', dot: 'bg-pink-400', border: 'border-pink-200', badge: 'bg-pink-200 text-pink-800' },
-  'In Progress': { bg: 'bg-amber-50', dot: 'bg-amber-400', border: 'border-amber-200', badge: 'bg-amber-100 text-amber-800' },
-  'Done': { bg: 'bg-violet-100', dot: 'bg-violet-400', border: 'border-violet-200', badge: 'bg-violet-200 text-violet-800' },
+  'To Do':       { bg: 'bg-pink-100',   dot: 'bg-pink-400',   border: 'border-pink-200',   badge: 'bg-pink-200 text-pink-700' },
+  'In Progress': { bg: 'bg-amber-50',   dot: 'bg-amber-400',  border: 'border-amber-200',  badge: 'bg-amber-100 text-amber-700' },
+  'Done':        { bg: 'bg-violet-100', dot: 'bg-violet-400', border: 'border-violet-200', badge: 'bg-violet-200 text-violet-700' },
 }
 
-const DEFAULT_COLOR = { bg: 'bg-teal-50', dot: 'bg-teal-400', border: 'border-teal-200', badge: 'bg-teal-100 text-teal-800' }
+const DEFAULT_COLOR = { bg: 'bg-teal-50', dot: 'bg-teal-400', border: 'border-teal-200', badge: 'bg-teal-100 text-teal-700' }
 
 export default function Column({ column, colIndex, onAddCard, onUpdateCard, onDeleteCard, onDeleteColumn }) {
   const [showAddModal, setShowAddModal] = useState(false)
@@ -35,27 +35,27 @@ export default function Column({ column, colIndex, onAddCard, onUpdateCard, onDe
 
   return (
     <>
-      <div className={`min-w-[260px] max-w-[260px] ${colors.bg} rounded-2xl p-3 flex flex-col gap-3 h-fit`}>
+      <div className={`min-w-[280px] max-w-[280px] ${colors.bg} rounded-3xl p-4 flex flex-col gap-3 h-fit`}>
 
         {/* Column header */}
-        <div className="flex items-center justify-between">
+        <div className="flex items-center justify-between mb-1">
           <div className="flex items-center gap-2">
-            <div className={`w-2 h-2 rounded-full ${colors.dot}`}></div>
-            <span className="text-sm font-semibold text-[#1a1a2e]">{column.title}</span>
-            <span className={`text-xs px-2 py-0.5 rounded-full font-medium ${colors.badge}`}>
+            <div className={`w-2.5 h-2.5 rounded-full ${colors.dot}`} />
+            <span className="text-sm font-bold text-[#1a1a2e]">{column.title}</span>
+            <span className={`text-xs px-2 py-0.5 rounded-full font-semibold ${colors.badge}`}>
               {column.cards.length}
             </span>
           </div>
           <div className="flex items-center gap-1">
             <button
               onClick={() => setShowAddModal(true)}
-              className="w-6 h-6 rounded-md flex items-center justify-center hover:bg-white/60 text-gray-400 hover:text-purple-700 transition text-lg"
+              className="w-7 h-7 rounded-lg flex items-center justify-center hover:bg-white/70 text-gray-400 hover:text-purple-700 transition text-xl font-light"
             >
               +
             </button>
             <button
               onClick={onDeleteColumn}
-              className="w-6 h-6 rounded-md flex items-center justify-center hover:bg-white/60 text-gray-300 hover:text-red-400 transition text-xs"
+              className="w-7 h-7 rounded-lg flex items-center justify-center hover:bg-white/70 text-gray-300 hover:text-red-400 transition text-xs"
             >
               ✕
             </button>
@@ -77,14 +77,13 @@ export default function Column({ column, colIndex, onAddCard, onUpdateCard, onDe
         {column.cards.length === 0 && (
           <div
             onClick={() => setShowAddModal(true)}
-            className="border-2 border-dashed border-white/60 rounded-xl p-4 text-center cursor-pointer hover:border-white transition"
+            className="border-2 border-dashed border-white/70 rounded-2xl p-6 text-center cursor-pointer hover:border-white transition"
           >
             <p className="text-xs text-gray-400">+ Add a card</p>
           </div>
         )}
       </div>
 
-      {/* Add card modal */}
       {showAddModal && (
         <CardModal
           onSave={handleAddCard}
@@ -92,7 +91,6 @@ export default function Column({ column, colIndex, onAddCard, onUpdateCard, onDe
         />
       )}
 
-      {/* Edit card modal */}
       {editCard && (
         <CardModal
           card={editCard}
