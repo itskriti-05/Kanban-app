@@ -1,3 +1,5 @@
+import { LayoutGrid, Trash2 } from 'lucide-react'
+
 export default function BoardCard({ board, onClick, onDelete }) {
 
   const getColumnCount = (title) => {
@@ -26,17 +28,17 @@ export default function BoardCard({ board, onClick, onDelete }) {
       {/* Header */}
       <div className="flex justify-between items-start mb-3">
         <div className="w-9 h-9 bg-purple-50 rounded-lg flex items-center justify-center">
-          <span className="text-purple-700">⊞</span>
+          <LayoutGrid size={16} className="text-purple-700" />
         </div>
         <button
           onClick={(e) => {
             e.stopPropagation()
             onDelete(board._id)
           }}
-          className="text-gray-300 hover:text-red-400 transition text-sm"
+          className="w-7 h-7 rounded-lg flex items-center justify-center text-gray-300 hover:text-red-400 hover:bg-red-50 transition"
           title="Delete board"
         >
-          🗑
+          <Trash2 size={14} />
         </button>
       </div>
 
@@ -53,32 +55,32 @@ export default function BoardCard({ board, onClick, onDelete }) {
       </div>
       <p className="text-xs text-gray-400 mb-3">{progress}% complete</p>
 
-    {/* Column counts */}
-<div className="flex flex-col gap-1.5">
-  <div className="flex justify-between items-center bg-pink-50 rounded-lg px-3 py-1.5">
-    <div className="flex items-center gap-1.5">
-      <div className="w-2 h-2 rounded-full bg-pink-400"></div>
-      <span className="text-xs text-gray-500">To Do</span>
-    </div>
-    <span className="text-xs font-semibold text-pink-500">{getColumnCount('To Do')}</span>
-  </div>
+      {/* Column counts */}
+      <div className="flex flex-col gap-1.5">
+        <div className="flex justify-between items-center bg-pink-50 rounded-lg px-3 py-1.5">
+          <div className="flex items-center gap-1.5">
+            <div className="w-2 h-2 rounded-full bg-pink-400"></div>
+            <span className="text-xs text-gray-500">To Do</span>
+          </div>
+          <span className="text-xs font-semibold text-pink-500">{getColumnCount('To Do')}</span>
+        </div>
 
-  <div className="flex justify-between items-center bg-amber-50 rounded-lg px-3 py-1.5">
-    <div className="flex items-center gap-1.5">
-      <div className="w-2 h-2 rounded-full bg-amber-400"></div>
-      <span className="text-xs text-gray-500">In Progress</span>
-    </div>
-    <span className="text-xs font-semibold text-amber-500">{getColumnCount('In Progress')}</span>
-  </div>
+        <div className="flex justify-between items-center bg-amber-50 rounded-lg px-3 py-1.5">
+          <div className="flex items-center gap-1.5">
+            <div className="w-2 h-2 rounded-full bg-amber-400"></div>
+            <span className="text-xs text-gray-500">In Progress</span>
+          </div>
+          <span className="text-xs font-semibold text-amber-500">{getColumnCount('In Progress')}</span>
+        </div>
 
-  <div className="flex justify-between items-center bg-violet-50 rounded-lg px-3 py-1.5">
-    <div className="flex items-center gap-1.5">
-      <div className="w-2 h-2 rounded-full bg-violet-400"></div>
-      <span className="text-xs text-gray-500">Done</span>
-    </div>
-    <span className="text-xs font-semibold text-violet-500">{getColumnCount('Done')}</span>
-  </div>
-</div>
+        <div className="flex justify-between items-center bg-violet-50 rounded-lg px-3 py-1.5">
+          <div className="flex items-center gap-1.5">
+            <div className="w-2 h-2 rounded-full bg-violet-400"></div>
+            <span className="text-xs text-gray-500">Done</span>
+          </div>
+          <span className="text-xs font-semibold text-violet-500">{getColumnCount('Done')}</span>
+        </div>
+      </div>
     </div>
   )
 }

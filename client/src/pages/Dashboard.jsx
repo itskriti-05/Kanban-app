@@ -5,6 +5,7 @@ import axios from '../api/axios'
 import toast, { Toaster } from 'react-hot-toast'
 import Sidebar from '../components/Sidebar'
 import BoardCard from '../components/BoardCard'
+import { Plus } from 'lucide-react'
 
 export default function Dashboard() {
   const { user } = useAuth()
@@ -58,49 +59,50 @@ export default function Dashboard() {
       <Sidebar />
 
       {/* Main content */}
-      <div className="ml-[60px] flex-1 p-8">
+      <div className="md:ml-[60px] flex-1 px-4 py-6 sm:p-8 pb-24 md:pb-8">
 
-       {/* Top bar */}
-<div className="flex justify-between items-center mb-8">
-  <div>
-    <h1 className="text-lg font-semibold text-[#1a1a2e]">My Boards</h1>
-    <p className="text-xs text-gray-400 mt-0.5">Welcome back, {user?.name} 👋</p>
-  </div>
+        {/* Top bar */}
+        <div className="flex flex-col sm:flex-row sm:justify-between sm:items-center gap-4 mb-8">
+          <div>
+            <h1 className="text-lg font-semibold text-[#1a1a2e]">My Boards</h1>
+            <p className="text-xs text-gray-400 mt-0.5">Welcome back, {user?.name} 👋</p>
+          </div>
 
-  <div className="flex items-center gap-3">
-    {/* Stats */}
-    <div className="flex items-center gap-4 bg-white border border-gray-100 rounded-xl px-5 py-3 shadow-sm">
-      <div className="text-center">
-        <p className="text-sm font-bold text-[#1a1a2e]">{boards.length}</p>
-        <p className="text-[10px] text-gray-400">Boards</p>
-      </div>
-      <div className="w-px h-5 bg-gray-100"></div>
-      <div className="text-center">
-        <p className="text-sm font-bold text-[#1a1a2e]">
-          {boards.reduce((acc, b) => acc + (b.columns?.reduce((a, c) => a + c.cards.length, 0) || 0), 0)}
-        </p>
-        <p className="text-[10px] text-gray-400">Tasks</p>
-      </div>
-      <div className="w-px h-5 bg-gray-100"></div>
-      <div className="text-center">
-        <p className="text-sm font-bold text-violet-500">
-          {boards.reduce((acc, b) => {
-            const done = b.columns?.find(c => c.title === 'Done')?.cards.length || 0
-            return acc + done
-          }, 0)}
-        </p>
-        <p className="text-[10px] text-gray-400">Done</p>
-      </div>
-    </div>
+          <div className="flex flex-wrap items-center gap-3">
+            {/* Stats */}
+            <div className="flex items-center gap-4 bg-white border border-gray-100 rounded-xl px-5 py-3 shadow-sm">
+              <div className="text-center">
+                <p className="text-sm font-bold text-[#1a1a2e]">{boards.length}</p>
+                <p className="text-[10px] text-gray-400">Boards</p>
+              </div>
+              <div className="w-px h-5 bg-gray-100"></div>
+              <div className="text-center">
+                <p className="text-sm font-bold text-[#1a1a2e]">
+                  {boards.reduce((acc, b) => acc + (b.columns?.reduce((a, c) => a + c.cards.length, 0) || 0), 0)}
+                </p>
+                <p className="text-[10px] text-gray-400">Tasks</p>
+              </div>
+              <div className="w-px h-5 bg-gray-100"></div>
+              <div className="text-center">
+                <p className="text-sm font-bold text-violet-500">
+                  {boards.reduce((acc, b) => {
+                    const done = b.columns?.find(c => c.title === 'Done')?.cards.length || 0
+                    return acc + done
+                  }, 0)}
+                </p>
+                <p className="text-[10px] text-gray-400">Done</p>
+              </div>
+            </div>
 
-    <button
-      onClick={() => setShowModal(true)}
-      className="flex items-center gap-2 bg-purple-700 hover:bg-purple-800 text-white text-sm font-medium px-4 py-3 rounded-xl transition shadow-sm"
-    >
-      + New Board
-    </button>
-  </div>
-</div>
+            <button
+              onClick={() => setShowModal(true)}
+              className="flex items-center gap-2 bg-purple-700 hover:bg-purple-800 text-white text-sm font-medium px-4 py-3 rounded-xl transition shadow-sm"
+            >
+              <Plus size={16} />
+              New Board
+            </button>
+          </div>
+        </div>
 
         {/* Boards grid */}
         {loading ? (
@@ -116,7 +118,7 @@ export default function Dashboard() {
             </button>
           </div>
         ) : (
-          <div className="grid grid-cols-3 gap-4">
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
             {boards.map(board => (
               <BoardCard
                 key={board._id}
@@ -132,7 +134,7 @@ export default function Dashboard() {
               className="bg-white rounded-3xl border-2 border-dashed border-gray-200 flex flex-col items-center justify-center gap-2 min-h-[180px] cursor-pointer hover:border-purple-300 transition"
             >
               <div className="w-9 h-9 bg-gray-50 rounded-lg flex items-center justify-center">
-                <span className="text-gray-400 text-xl">+</span>
+                <Plus size={18} className="text-gray-400" />
               </div>
               <span className="text-xs text-gray-400">Create new board</span>
             </div>
@@ -142,7 +144,7 @@ export default function Dashboard() {
 
       {/* New Board Modal */}
       {showModal && (
-        <div className="fixed inset-0 bg-black/30 flex items-center justify-center z-50">
+        <div className="fixed inset-0 bg-black/30 flex items-center justify-center z-50 px-4">
           <div className="bg-white rounded-2xl p-6 w-full max-w-sm shadow-xl">
             <h3 className="text-base font-semibold text-[#1a1a2e] mb-4">Create new board</h3>
             <input

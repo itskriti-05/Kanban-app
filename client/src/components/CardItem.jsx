@@ -1,3 +1,5 @@
+import { Trash2, AlertTriangle } from 'lucide-react'
+
 const PRIORITY_STYLES = {
   High: 'bg-red-100 text-red-700',
   Medium: 'bg-amber-100 text-amber-700',
@@ -45,8 +47,9 @@ export default function CardItem({ card, borderColor, onClick, onDelete }) {
       {/* Footer */}
       <div className="flex justify-between items-center mt-2">
         {card.dueDate ? (
-          <span className={`text-xs ${isOverdue ? 'text-red-500 font-medium' : 'text-gray-400'}`}>
-            {isOverdue ? '⚠ ' : ''}Due: {new Date(card.dueDate).toLocaleDateString('en-US', { month: 'short', day: 'numeric' })}
+          <span className={`flex items-center gap-1 text-xs ${isOverdue ? 'text-red-500 font-medium' : 'text-gray-400'}`}>
+            {isOverdue && <AlertTriangle size={11} />}
+            Due: {new Date(card.dueDate).toLocaleDateString('en-US', { month: 'short', day: 'numeric' })}
           </span>
         ) : (
           <span />
@@ -57,9 +60,9 @@ export default function CardItem({ card, borderColor, onClick, onDelete }) {
             e.stopPropagation()
             onDelete()
           }}
-          className="text-gray-200 hover:text-red-400 transition text-sm opacity-0 group-hover:opacity-100"
+          className="text-gray-200 hover:text-red-400 transition opacity-0 group-hover:opacity-100 sm:opacity-0"
         >
-          🗑
+          <Trash2 size={13} />
         </button>
       </div>
     </div>

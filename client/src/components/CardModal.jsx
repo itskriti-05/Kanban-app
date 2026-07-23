@@ -1,5 +1,5 @@
 import { useState } from 'react'
-
+import { X } from 'lucide-react'
 
 const PRIORITIES = ['Low', 'Medium', 'High']
 
@@ -24,8 +24,8 @@ export default function CardModal({ card, onSave, onClose, onDelete }) {
   }
 
   return (
-    <div className="fixed inset-0 bg-black/30 flex items-center justify-center z-50">
-      <div className="bg-white rounded-2xl p-6 w-full max-w-sm shadow-xl">
+    <div className="fixed inset-0 bg-black/30 flex items-center justify-center z-50 px-4">
+      <div className="bg-white rounded-2xl p-6 w-full max-w-sm shadow-xl max-h-[90vh] overflow-y-auto">
 
         {/* Header */}
         <div className="flex items-center justify-between mb-4">
@@ -34,9 +34,9 @@ export default function CardModal({ card, onSave, onClose, onDelete }) {
           </h3>
           <button
             onClick={onClose}
-            className="text-gray-300 hover:text-gray-500 transition text-lg"
+            className="w-7 h-7 rounded-lg flex items-center justify-center text-gray-300 hover:text-gray-500 hover:bg-gray-50 transition"
           >
-            ✕
+            <X size={16} />
           </button>
         </div>
 

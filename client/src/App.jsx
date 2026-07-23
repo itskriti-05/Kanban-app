@@ -1,21 +1,22 @@
 import React from 'react'
-import { Routes, Route, Navigate } from 'react-router-dom'
-import { useAuth } from './context/AuthContext'
+import { Routes, Route } from 'react-router-dom'
 import Landing from './pages/Landing'
 import Login from './pages/Login'
 import Register from './pages/Register'
 import Dashboard from './pages/Dashboard'
 import BoardPage from './pages/BoardPage'
+import { ProtectedRoute, GuestRoute } from './components/ProtectedRoute'
+import Profile from './pages/Profile'
 
 const App = () => {
-  const { user } = useAuth()
   return (
     <Routes>
       <Route path='/' element={<Landing />} />
-      <Route path='/login' element={!user ? <Login /> : <Navigate to="/dashboard" />} />
-      <Route path='/register' element={!user ? <Register /> : <Navigate to="/dashboard" />} />
-      <Route path='/dashboard' element={user ? <Dashboard /> : <Navigate to="/login" />} />
-      <Route path='/board/:id' element={user ? <BoardPage /> : <Navigate to="/login" />} />
+      <Route path='/login' element={<GuestRoute><Login /></GuestRoute>} />
+      <Route path='/register' element={<GuestRoute><Register /></GuestRoute>} />
+      <Route path='/dashboard' element={<ProtectedRoute><Dashboard /></ProtectedRoute>} />
+      <Route path='/board/:id' element={<ProtectedRoute><BoardPage /></ProtectedRoute>} />
+      <Route path='/profile' element={<ProtectedRoute><Profile/></ProtectedRoute>} />
     </Routes>
   )
 }

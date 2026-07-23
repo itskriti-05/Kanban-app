@@ -1,30 +1,47 @@
-import { createContext, useContext, useState } from 'react'
+// src/context/AuthContext.jsx
+import React, { createContext, useContext, useState, useEffect } from 'react'
 
-const AuthContext = createContext();
+const AuthContext = createContext()
 
-export const AuthProvider = ({children})=>{
- const [user, setUser] = useState(
-    JSON.parse(localStorage.getItem('user')) || null
- )
+export const AuthProvider = ({ children }) => {
+  const [user, setUser] = useState(null)
+  const [loading, setLoading] = useState(true)
 
-   const login = (userData, token) => {
+  useEffect(() => {
+    const token = localStorage.getItem('token')
+    const storedUser = localStorage.getItem('user')
+
+    if (token && storedUser) {
+      setUser(JSON.parse(storedUser))
+    }
+    setLoading(false)
+  }, [])
+
+  // Called from Login.jsx after a successful API call
+  const login = (userData, token) => {
     localStorage.setItem('token', token)
     localStorage.setItem('user', JSON.stringify(userData))
     setUser(userData)
   }
 
-   const logout = () => {
+  // Called from Register.jsx after a successful API call
+  const register = (userData, token) => {
+    localStorage.setItem('token', token)
+    localStorage.setItem('user', JSON.stringify(userData))
+    setUser(userData)
+  }
+
+  const logout = () => {
     localStorage.removeItem('token')
     localStorage.removeItem('user')
     setUser(null)
   }
 
-
-  return(
-    <AuthContext.Provider value={{user, login, logout}}>
-        {children}
+  return (
+    <AuthContext.Provider value={{ user, loading, login, register, logout }}>
+      {children}
     </AuthContext.Provider>
   )
 }
 
-export const useAuth = ()=> useContext(AuthContext)
+export const useAuth = () => useContext(AuthContext)

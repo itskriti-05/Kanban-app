@@ -4,6 +4,7 @@ import axios from "../api/axios";
 import toast, { Toaster } from "react-hot-toast";
 import Sidebar from "../components/Sidebar";
 import Column from "../components/Column";
+import { Plus } from "lucide-react";
 
 export default function BoardPage() {
   const { id } = useParams();
@@ -98,7 +99,7 @@ export default function BoardPage() {
     return (
       <div className="flex min-h-screen bg-[#f8f7ff]">
         <Sidebar />
-        <div className="ml-[60px] flex-1 flex items-center justify-center">
+        <div className="md:ml-[60px] flex-1 flex items-center justify-center">
           <p className="text-gray-400 text-sm">Loading board...</p>
         </div>
       </div>
@@ -109,33 +110,34 @@ export default function BoardPage() {
       <Toaster />
       <Sidebar />
 
-      <div className="ml-[60px] flex-1 flex flex-col min-w-0">
+      <div className="md:ml-[60px] flex-1 flex flex-col min-w-0">
 
         {/* Top bar */}
-        <div className="bg-white border-b border-gray-100 px-6 py-3 flex justify-between items-center shrink-0">
-          <div className="flex items-center gap-2">
+        <div className="bg-white border-b border-gray-100 px-4 sm:px-6 py-3 flex justify-between items-center shrink-0">
+          <div className="flex items-center gap-2 min-w-0">
             <span
               onClick={() => navigate("/dashboard")}
-              className="text-xs text-gray-400 cursor-pointer hover:text-purple-700 transition"
+              className="text-xs text-gray-400 cursor-pointer hover:text-purple-700 transition shrink-0"
             >
               My Boards
             </span>
-            <span className="text-gray-300 text-xs">/</span>
-            <span className="text-sm font-semibold text-[#1a1a2e]">
+            <span className="text-gray-300 text-xs shrink-0">/</span>
+            <span className="text-sm font-semibold text-[#1a1a2e] truncate">
               {board?.title}
             </span>
           </div>
           <button
             onClick={addColumn}
-            className="flex items-center gap-2 bg-purple-700 hover:bg-purple-800 text-white text-sm font-medium px-4 py-2 rounded-lg transition"
+            className="flex items-center gap-1.5 bg-purple-700 hover:bg-purple-800 text-white text-sm font-medium px-3 sm:px-4 py-2 rounded-lg transition shrink-0"
           >
-            + Add Column
+            <Plus size={16} />
+            <span className="hidden sm:inline">Add Column</span>
           </button>
         </div>
 
         {/* Columns area */}
-        <div className="flex-1 overflow-x-auto overflow-y-auto">
-          <div className="flex gap-4 p-6 h-full items-start">
+        <div className="flex-1 overflow-x-auto overflow-y-auto pb-20 md:pb-0">
+          <div className="flex gap-4 p-4 sm:p-6 h-full items-start">
             {board?.columns.map((col, colIndex) => (
               <Column
                 key={colIndex}
@@ -153,10 +155,10 @@ export default function BoardPage() {
             {/* Add column placeholder */}
             <div
               onClick={addColumn}
-              className="shrink-0 w-[200px] bg-white/60 border-2 border-dashed border-gray-200 rounded-2xl p-4 flex flex-col items-center justify-center gap-2 cursor-pointer hover:border-purple-300 transition"
+              className="shrink-0 w-[85vw] sm:w-[200px] bg-white/60 border-2 border-dashed border-gray-200 rounded-2xl p-4 flex flex-col items-center justify-center gap-2 cursor-pointer hover:border-purple-300 transition"
               style={{ minHeight: '80px' }}
             >
-              <span className="text-2xl text-gray-300">+</span>
+              <Plus size={20} className="text-gray-300" />
               <span className="text-xs text-gray-400">Add column</span>
             </div>
           </div>
