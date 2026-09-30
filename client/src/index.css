@@ -8,3 +8,6 @@
 .logo-font {
   font-family: "Plus Jakarta Sans", sans-serif;
 }
+html {
+  scroll-behavior: smooth;
+}
